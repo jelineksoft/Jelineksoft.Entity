@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.0.21" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Jelineksoft.Entity\Jelineksoft.Entity.csproj" />
+    </ItemGroup>
+
+</Project>

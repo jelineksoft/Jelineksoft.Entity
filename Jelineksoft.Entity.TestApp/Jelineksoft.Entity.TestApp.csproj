@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <StartupObject>Jelineksoft.Entity.TestApp.Program</StartupObject>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Jelineksoft.Entity.MariaDB\Jelineksoft.Entity.MariaDB.csproj" />
+      <ProjectReference Include="..\Jelineksoft.Entity.MSSQL\Jelineksoft.Entity.MSSQL.csproj" />
+      <ProjectReference Include="..\Jelineksoft.Entity\Jelineksoft.Entity.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="TestDB.mdf">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+      <None Update="TestDB_log.ldf">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
