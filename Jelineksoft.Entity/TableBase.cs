@@ -145,7 +145,7 @@ namespace Jelineksoft.Entity
                 }
                 catch (Exception e)
                 {
-                    Settings.Log.LogSQL(e.ToString(), null);
+                    Settings.Log.LogSQL($"Set value from column {col.DbName} to property {col.PropertyName} failed. " +  e.ToString(), null);
                 }
 
                 i++;
