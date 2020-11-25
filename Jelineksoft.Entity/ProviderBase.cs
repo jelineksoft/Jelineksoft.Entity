@@ -21,13 +21,10 @@ namespace Jelineksoft.Entity
         {
         }
 
-        public String ConnectionString
-        {
-            get;
-            set;
-        }
+        public String ConnectionString { get; set; }
 
         private Int32 _commandTimeout = 35;
+
         public Int32 CommandTimeout
         {
             get { return _commandTimeout; }
@@ -42,9 +39,11 @@ namespace Jelineksoft.Entity
 
         public abstract void ParametersRemoveAll();
 
-        public abstract void AddWhereParameter(String _columnName, String _tableName, Object _value, PropertyCompareOperatorEnum _propertyCompare, WhereMergeOperatorEnum _whereMergeOperator);
+        public abstract void AddWhereParameter(String _columnName, String _tableName, Object _value,
+            PropertyCompareOperatorEnum _propertyCompare, WhereMergeOperatorEnum _whereMergeOperator);
 
-        public abstract void AddWhereParameterIN(String _columnName, String _tableName, Array _values, WhereMergeOperatorEnum _whereMergeOperator, Boolean NotIn);
+        public abstract void AddWhereParameterIN(String _columnName, String _tableName, Array _values,
+            WhereMergeOperatorEnum _whereMergeOperator, Boolean NotIn);
 
         public abstract void AddWhereString(String _whereString);
 
@@ -74,6 +73,7 @@ namespace Jelineksoft.Entity
         public abstract void AddColumnToSelect(String _columnName, String _tableName);
 
         public abstract void AddColumnToSelect(String _columnName);
+        public abstract void AddCustomToSelect(string txt);
 
         public abstract void AddColumnToUpdate(string _name, object value);
         public abstract void AddColumnToInsert(string _name, object value);

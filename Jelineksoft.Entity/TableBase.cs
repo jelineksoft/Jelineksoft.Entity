@@ -72,9 +72,20 @@ namespace Jelineksoft.Entity
 
             foreach (var cc in CustomColumnsToSelect)
             {
-                Provider.AddColumnToSelect(cc.DbName, cc.DbTable.GetTableNameShortcut());
+                if (cc.IsInSelect)
+                {
+                    if (cc.DbTable != null)
+                    {
+                        Provider.AddColumnToSelect(cc.DbName, cc.DbTable.GetTableNameShortcut());
+                    }
+                    else
+                    {
+                        Provider.AddColumnToSelect(cc.DbName);
+                    }
+                }
             }
 
+            
             foreach (var custTable in CustomTablesToSelect)
             {
                 var cols = custTable.GetTableColumns(true);
@@ -89,7 +100,7 @@ namespace Jelineksoft.Entity
                 while (reader.Read())
                 {
                     int i = 0;
-                    FillDataToNewRow(reader, columns, this, ref i);
+                    FillDataToNewRow(reader, this.GetTableColumns(true), this, ref i);
                     foreach (var custTabl in CustomTablesToSelect)
                     {
                         FillDataToNewRow(reader, custTabl.GetTableColumns(true), custTabl, ref i);
@@ -151,24 +162,27 @@ namespace Jelineksoft.Entity
                 i++;
             }
 
-            if (CustomColumnsToSelect.Count > 0)
+            if (table.CustomColumnsToSelect.Count > 0)
             {
                 r.DbHelpers.CustomColumnValues = new Dictionary<string, object>();
             }
 
-            foreach (var custColumn in CustomColumnsToSelect)
+            foreach (var custColumn in table.CustomColumnsToSelect)
             {
                 try
                 {
-                    r.DbHelpers.CustomColumnValues.Add(custColumn.GetFullName(),
-                        provider.ReaderReturnNetType(reader.GetValue(i)));
+                    if (custColumn.IsInSelect)
+                    {
+                        i++;
+                        r.DbHelpers.CustomColumnValues.Add(custColumn.GetFullName(),
+                            provider.ReaderReturnNetType(reader.GetValue(i-1)));
+                    }
                 }
                 catch (Exception e)
                 {
                     Settings.Log.LogSQL(e.ToString(), null);
                 }
 
-                i++;
             }
         }
 
@@ -347,5 +361,22 @@ namespace Jelineksoft.Entity
         {
             Provider.AddDistinct();
         }
+
+        public void AddColumnToSelect(Column col)
+        {
+            Provider.AddColumnToSelect(col.DbName, col.DbTable.GetTableNameShortcut());
+        }
+
+        public void AddCustomToSelect(string txt)
+        {
+            Provider.AddCustomToSelect(txt);
+        }
+
+        public void AddGroupBy(Column col)
+        {
+            Provider.AddGroupBy(col.DbTable.GetTableNameShortcut(), col.DbName);
+        }
+        
+        
     }
 }

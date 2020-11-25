@@ -55,6 +55,11 @@ namespace Jelineksoft.Entity
 
         public string GetFullName()
         {
+            if (DbTable == null)
+            {
+                return DbName;
+            }
+            
             return DbTable.GetTableNameShortcut() + "." + DbName ;
         }
 

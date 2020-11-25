@@ -1002,5 +1002,10 @@ namespace Jelineksoft.Entity.Providers
         {
             return value;
         }
+        
+        public override void AddCustomToSelect(string txt)
+        {
+           throw new NotImplementedException();
+        }
     }
 }

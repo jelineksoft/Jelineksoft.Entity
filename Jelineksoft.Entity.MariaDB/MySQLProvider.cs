@@ -46,6 +46,7 @@ namespace Jelineksoft.Entity.Providers
         private Int32 _sql_paramIndex = 0;
 
         private StringBuilder _sb_select = null;
+        private StringBuilder _sb_select_cust = null;
         private StringBuilder _sb_join = null;
         private StringBuilder _sb_where = null;
         private StringBuilder _sb_orderBy = null;
@@ -61,6 +62,7 @@ namespace Jelineksoft.Entity.Providers
         public override void ResetProvider()
         {
             this._sb_select = new StringBuilder();
+            this._sb_select_cust = new StringBuilder();
             this._sb_orderBy = new StringBuilder();
             this._sb_join = new StringBuilder();
             this._sb_where = new StringBuilder();
@@ -663,12 +665,17 @@ namespace Jelineksoft.Entity.Providers
             if (this._sb_groupBy == null)
             {
                 this._sb_groupBy = new System.Text.StringBuilder();
-                this._sb_groupBy.Append(" GROUP BY `"+ _tableName + "`.`" + _columnName + "`");
+            }
+
+            if (this._sb_groupBy.Length < 1)
+            {
+                this._sb_groupBy.Append(" GROUP BY ");
             }
             else
             {
-                this._sb_groupBy.Append(", `" + _tableName + "`.`" + _columnName + "`");
+                this._sb_groupBy.Append(", ");
             }
+                this._sb_groupBy.Append("`" + _tableName + "`.`" + _columnName + "`");
         }
 
         public override void AddDistinct()
@@ -1020,6 +1027,11 @@ namespace Jelineksoft.Entity.Providers
             }
 
             return value;
+        }
+
+        public override void AddCustomToSelect(string txt)
+        {
+            _sb_select_cust.Append(txt);
         }
     }
 }
