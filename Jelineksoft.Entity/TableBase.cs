@@ -142,15 +142,6 @@ namespace Jelineksoft.Entity
                     else
                     {
                         var val = reader.GetValue(i);
-                        //TODO: FLOAT
-                        //try
-                        //{ pi.SetValue(r, Convert.ChangeType(val, pi.PropertyType)); }
-                        //catch (Exception ex)
-                        //{
-                        //    Settings.Log.LogSQL(ex.ToString(), null);
-                        //}
-
-
                         pi.SetValue(r, provider.ReaderReturnNetType(val));
                     }
                 }
@@ -364,7 +355,8 @@ namespace Jelineksoft.Entity
 
         public void AddColumnToSelect(Column col)
         {
-            Provider.AddColumnToSelect(col.DbName, col.DbTable.GetTableNameShortcut());
+            col.IsInSelect = true;
+           // Provider.AddColumnToSelect(col.DbName, col.DbTable.GetTableNameShortcut());
         }
 
         public void AddCustomToSelect(string txt)
