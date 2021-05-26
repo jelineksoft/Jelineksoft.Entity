@@ -7,7 +7,7 @@ namespace Jelineksoft.Entity
 {
     public class Log
     {
-        public bool LogSQLToConsole { get; set; } = true;
+        public bool LogSQLToConsole { get; set; } = false;
 
         public delegate void LogSQLEventDelegate(string sql, object parameters);
 
